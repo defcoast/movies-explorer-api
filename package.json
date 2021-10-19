@@ -1,0 +1,30 @@
+{
+  "name": "movies-explorer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/defcoast/movies-explorer-api.git"
+  },
+  "author": "Rozhkov Alexander",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/defcoast/movies-explorer-api/issues"
+  },
+  "homepage": "https://github.com/defcoast/movies-explorer-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.11"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.1",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.25.2",
+    "nodemon": "^2.0.13"
+  }
+}
