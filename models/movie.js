@@ -45,13 +45,17 @@ const movieSchema = mongoose.Schema({
     validate: (v) => validator.isURL(v),
   },
 
-  owner: {
-    //  todo-19.10.2021-rozhkov.a настроить поле,
-  },
+  // owner: {
+  //   type:     mongoose.Schema.Types.ObjectId,
+  //   ref:      'user',
+  //   required: true,
+  // },
 
-  movieId: {
-    //  todo-19.10.2021-rozhkov.a настроить поле
-  },
+  // movieId: {
+  //   type:     mongoose.Schema.Types.ObjectId,
+  //   ref:      'movie',
+  //   required: true,
+  // },
 
   nameRU: {
     type:     String,
