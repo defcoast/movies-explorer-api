@@ -3,67 +3,67 @@ const validator = require('validator');
 
 const movieSchema = mongoose.Schema({
   country: {
-    type:     String,
+    type: String,
     required: true,
   },
 
   director: {
-    type:     String,
+    type: String,
     required: true,
   },
 
   duration: {
-    type:     Number,
+    type: Number,
     required: true,
   },
 
   year: {
-    type:     String,
+    type: String,
     required: true,
   },
 
   description: {
-    type:     String,
+    type: String,
     required: true,
   },
 
   image: {
-    type:     String,
+    type: String,
     required: true,
     validate: (v) => validator.isURL(v),
   },
 
   trailer: {
-    type:     String,
+    type: String,
     required: true,
     validate: (v) => validator.isURL(v),
   },
 
   thumbnail: {
-    type:     String,
+    type: String,
     required: true,
     validate: (v) => validator.isURL(v),
   },
 
-  // owner: {
-  //   type:     mongoose.Schema.Types.ObjectId,
-  //   ref:      'user',
-  //   required: true,
-  // },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
+  },
 
-  // movieId: {
-  //   type:     mongoose.Schema.Types.ObjectId,
-  //   ref:      'movie',
-  //   required: true,
-  // },
+  movieId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'movie',
+    required: true,
+  },
 
   nameRU: {
-    type:     String,
+    type: String,
     required: true,
   },
 
   nameEN: {
-    type:     String,
+    type: String,
     required: true,
   },
 });

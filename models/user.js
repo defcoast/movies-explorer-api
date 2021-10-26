@@ -3,21 +3,21 @@ const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
   email: {
-    type:     String,
+    type: String,
     required: true,
-    unique:   true,
+    unique: true,
     validate: (v) => validator.isEmail(v),
   },
 
   password: {
-    type:     String,
+    type: String,
     required: true,
-    select:   false
+    select: false,
   },
 
   name: {
-    type:      String,
-    required:  true,
+    type: String,
+    required: true,
     minlength: 2,
     maxlength: 30,
   },
