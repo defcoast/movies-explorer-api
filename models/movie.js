@@ -52,9 +52,9 @@ const movieSchema = mongoose.Schema({
   },
 
   movieId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'movie',
+    type: String,
     required: true,
+    minlength: 1,
   },
 
   nameRU: {

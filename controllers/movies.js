@@ -3,6 +3,8 @@ const NotFoundError = require('../errors/notFound');
 const ValidationError = require('../errors/validation');
 const ForbiddenError = require('../errors/forbidden');
 
+const { notFoundFilm, notDeleteFilmsByOtherUsers, incorrectId } = require('../constants/errorMessages');
+
 /** Получить все фильмы. */
 const getAllMovies = async (req, res, next) => {
   try {
@@ -59,15 +61,15 @@ const deleteMovie = async (req, res, next) => {
     const movie = await Movie.findById(req.params.movieId);
 
     if (!movie) {
-      next(new NotFoundError('Такой карточки не существует'));
+      next(new NotFoundError(notFoundFilm));
     } else if (!movie.owner.equals(req.user._id)) {
-      next(new ForbiddenError('Вы не можете удалять чужие карточки'));
+      next(new ForbiddenError(notDeleteFilmsByOtherUsers));
     } else {
       Movie.deleteOne(movie).then(() => res.send({ data: movie }));
     }
   } catch (err) {
     if (err.name === 'CastError') {
-      next(new ValidationError('Некорректный id'));
+      next(new ValidationError(incorrectId));
     } else {
       next(err);
     }

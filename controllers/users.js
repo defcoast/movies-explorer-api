@@ -7,6 +7,10 @@ const ValidationError = require('../errors/validation');
 const AuthError = require('../errors/auth');
 const NotFoundError = require('../errors/notFound');
 
+const { JWT_SECRET } = require('../config');
+
+const { notFoundUser, busyEmail, incorrectLoginOrPwd } = require('../constants/errorMessages');
+
 const saltRounds = 10;
 
 /** Получить информацию о пользователе. */
@@ -29,7 +33,7 @@ const updateUserInfo = async (req, res, next) => {
       { new: true, runValidators: true });
 
     if (!user) {
-      next(new NotFoundError('Пользователь не найден'));
+      next(new NotFoundError(notFoundUser));
     }
     res.send({ data: user });
   } catch (err) {
@@ -62,7 +66,7 @@ const createUser = async (req, res, next) => {
         .map((error) => error.message)
         .join(', ')}`));
     } else if (err.name === 'MongoServerError' && err.code === 11000) {
-      next(new DuplicateError('Пользователь с указанным email уже существует'));
+      next(new DuplicateError(busyEmail));
     } else {
       next(err);
     }
@@ -77,16 +81,18 @@ const login = async (req, res, next) => {
     const user = await User.findOne({ email }).select('+password');
 
     if (!user) {
-      next(new AuthError('Неверный логин или пароль'));
+      next(new AuthError(incorrectLoginOrPwd));
       return;
     }
 
     bcrypt.compare(password, user.password, (err, result) => {
       if (!result) {
-        next(new AuthError('Неверный логин или пароль'));
+        next(new AuthError(incorrectLoginOrPwd));
         return;
       }
-      const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id },
+        JWT_SECRET,
+        { expiresIn: '7d' });
       res.send({ token });
     });
   } catch (err) {
