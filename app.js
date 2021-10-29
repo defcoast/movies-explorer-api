@@ -8,6 +8,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorsHandler = require('./middlewares/errorsHandler');
 const { MONGO_URL } = require('./config');
 const { limiter } = require('./middlewares/rateLimiter');
+const helmet = require('helmet');
 
 const { PORT = 3000 } = process.env;
 
@@ -19,6 +20,7 @@ mongoose.connect(MONGO_URL);
 app.use(bodyParser.json());
 app.use(requestLogger);
 app.use(limiter);
+app.use(helmet());
 app.use(router);
 app.use(errorLogger);
 app.use(errors());

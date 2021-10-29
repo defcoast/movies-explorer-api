@@ -44,6 +44,7 @@ const createNewMovie = async (req, res, next) => {
       nameEN,
       thumbnail,
       movieId,
+      owner: req.user._id,
     });
     res.status(201).send(movie);
   } catch (err) {
