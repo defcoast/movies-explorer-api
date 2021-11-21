@@ -9,10 +9,13 @@ const errorsHandler = require('./middlewares/errorsHandler');
 const { MONGO_URL } = require('./config');
 const { limiter } = require('./middlewares/rateLimiter');
 const helmet = require('helmet');
+const cors = require('cors');
 
 const { PORT = 3000 } = process.env;
 
 const app = express();
+
+app.use(cors());
 
 // Подключаемся к серверу mongo
 mongoose.connect(MONGO_URL);
